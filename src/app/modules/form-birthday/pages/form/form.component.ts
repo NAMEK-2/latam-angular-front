@@ -63,13 +63,19 @@ export class FormComponent implements OnInit {
 
     public get form() { return this.birthdayForm.controls; }
 
-    async seeBirthDate() {
+  /**
+   * Hace pasar a la pantalla de resultados
+   */
+  async seeBirthDate() {
       if (await this.sendDate()) {
         this.step = 2;
       }
     }
 
-    back() {
+  /**
+   * Devuelve a la pantalla inicial que pide los datos
+   */
+  back() {
       this.birthdayForm.controls.birthdate.setValue('');
       this.birthdayForm.controls.name.setValue('');
       this.birthdayForm.controls.lastName.setValue('');
@@ -77,7 +83,10 @@ export class FormComponent implements OnInit {
       this.step = 1;
     }
 
-    async sendDate() {
+  /**
+   * Enviada la Data para ser enviada a API
+   */
+  async sendDate() {
       this.loadingButton = true;
       this.formSubmitted = true;
 
@@ -110,7 +119,10 @@ export class FormComponent implements OnInit {
       }
     }
 
-    validData(): boolean {
+  /**
+   * Valida el formulario
+   */
+  validData(): boolean {
       if (!this.birthdayForm.valid) {
         setTimeout(() => { this.loadingButton = false; }, 300);
         return false;
@@ -119,7 +131,10 @@ export class FormComponent implements OnInit {
       }
     }
 
-    workData(): void {
+  /**
+   * Formatea la Data para ser enviada a la APi
+   */
+  workData(): void {
       this.pipe = new DatePipe('en-US');
       const date = this.pipe.transform(this.birthdayForm.controls.birthdate.value, 'dd-MM-yyyy');
       const oneName = this.birthdayForm.controls.name.value.trim().split(' ')[0];
