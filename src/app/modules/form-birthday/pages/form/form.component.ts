@@ -15,53 +15,53 @@ import {UserDataDto} from '../../../../core/dto/user-data.dto';
 
 export class FormComponent implements OnInit {
 
-    public birthdayForm: FormGroup;
-    public pipe: DatePipe = new DatePipe('en-US');
-    public formSubmitted = false;
-    public date = this.pipe.transform(new Date(), 'yyyy-MM-dd');
-    public userDto: UserDataDto = null;
-    public errorDiv = false;
+  public birthdayForm: FormGroup;
+  public pipe: DatePipe = new DatePipe('en-US');
+  public formSubmitted = false;
+  public date = this.pipe.transform(new Date(), 'yyyy-MM-dd');
+  public userDto: UserDataDto = null;
+  public errorDiv = false;
 
-    public birthdayDto: SendDataDto = {
-      name: '',
-      lastName: '',
-      birthdate: '',
-    };
+  public birthdayDto: SendDataDto = {
+    name: '',
+    lastName: '',
+    birthdate: '',
+  };
 
-    public loadingButton = false;
-    public step = 1;
+  public loadingButton = false;
+  public step = 1;
 
-    constructor(
-      private formBuilder: FormBuilder,
-      private userService: UserService,
-    ) {
-    }
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+  ) {
+  }
 
-    ngOnInit() {
-      const dto = this.birthdayDto;
-      this.birthdayForm = this.formBuilder.group({
-        name: [
-          dto.name, Validators.compose([
-            Validators.required,
-            CustomValidators.notBlank,
-          ]),
-        ],
-        lastName: [
-          dto.lastName, Validators.compose([
-            Validators.required,
-            CustomValidators.notBlank,
-          ]),
-        ],
-        birthdate: [
-          dto.birthdate, Validators.compose([
-            Validators.required,
-            CustomValidators.notBlank,
-          ])
-        ]
-      });
-    }
+  ngOnInit() {
+    const dto = this.birthdayDto;
+    this.birthdayForm = this.formBuilder.group({
+      name: [
+        dto.name, Validators.compose([
+          Validators.required,
+          CustomValidators.notBlank,
+        ]),
+      ],
+      lastName: [
+        dto.lastName, Validators.compose([
+          Validators.required,
+          CustomValidators.notBlank,
+        ]),
+      ],
+      birthdate: [
+        dto.birthdate, Validators.compose([
+          Validators.required,
+          CustomValidators.notBlank,
+        ])
+      ]
+    });
+  }
 
-    public get form() { return this.birthdayForm.controls; }
+  public get form() { return this.birthdayForm.controls; }
 
   /**
    * Hace pasar a la pantalla de resultados
@@ -80,6 +80,7 @@ export class FormComponent implements OnInit {
       this.birthdayForm.controls.name.setValue('');
       this.birthdayForm.controls.lastName.setValue('');
       this.formSubmitted = false;
+      this.loadingButton = false;
       this.step = 1;
     }
 
@@ -135,15 +136,15 @@ export class FormComponent implements OnInit {
    * Formatea la Data para ser enviada a la APi
    */
   workData(): void {
-      this.pipe = new DatePipe('en-US');
-      const date = this.pipe.transform(this.birthdayForm.controls.birthdate.value, 'dd-MM-yyyy');
-      const oneName = this.birthdayForm.controls.name.value.trim().split(' ')[0];
-      const oneLastName = this.birthdayForm.controls.lastName.value.trim().split(' ')[0];
+    this.pipe = new DatePipe('en-US');
+    const date = this.pipe.transform(this.birthdayForm.controls.birthdate.value, 'dd-MM-yyyy');
+    const oneName = this.birthdayForm.controls.name.value.trim().split(' ')[0];
+    const oneLastName = this.birthdayForm.controls.lastName.value.trim().split(' ')[0];
 
-      this.birthdayDto = {
-        name: oneName,
-        lastName: oneLastName,
-        birthdate: date,
-      };
-    }
+    this.birthdayDto = {
+      name: oneName,
+      lastName: oneLastName,
+      birthdate: date,
+    };
+  }
 }
