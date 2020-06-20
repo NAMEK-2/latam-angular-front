@@ -12,7 +12,7 @@ Angular CLI
 ## Development server
 
 run command `nmp i`
-run command `ng serve` y `http://localhost:4200/` O correr `ng serve --open`
+run command `ng serve` and open in the browser `http://localhost:4200/` O correr `ng serve --open`
 
 ## Build
 
