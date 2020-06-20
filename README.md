@@ -6,8 +6,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Requirements
 
-NPM
-Angular CLI
+- NPM
+- Angular CLI
 
 ## Development server
 
